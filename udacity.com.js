@@ -1,6 +1,6 @@
 $(window).bind('keypress', function(e) {
-  // Lol lets make sure is not an input form.
-  if(e.target.nodeName != 'INPUT') {
+  // Only allow it on the body.
+  if(e.target.nodeName === 'BODY') {
     // Let "P" go to previous.
     if (e.keyCode === 112) {
       $('div.button')[0].click();
