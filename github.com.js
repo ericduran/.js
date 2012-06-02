@@ -8,7 +8,7 @@
   if ($('#inbox').length) {
     $del = $('<a class="minibutton">').click(function () {
       $('.mini-icon-delete-note').click();
-      // Give it some time then reload to delete everything.
+      // Give it some time to delete everything then reload.
       window.setTimeout(function() {
         window.location.reload();
       }, 500);
