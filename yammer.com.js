@@ -17,10 +17,9 @@ function updateDockBadge() {
 
   // loop thru anchor tags
   var anchorEls = document.getElementsByTagName('span');
-  //console.log('anchors: ' + anchorEls.length);
 
   var regex = /Click to see (\d+) new message/;
-
+  var continueon = true;
   for (var i = 0; i < anchorEls.length; i++) {
     if (anchorEls[i].classList.contains('yj-notice-text')) {
       var anchorEl = anchorEls[i];
@@ -28,18 +27,34 @@ function updateDockBadge() {
         continue;
       }
       var text = '' + anchorEl.innerText;
-      if (!text.length) { 
+      if (!text.length) {
         continue;
       }
       var res = text.match(regex);
       if (res && res.length > 1) {
-        //console.log('res: '+ res);
         newBadge = res[1];
-        break;
+        if (!continueon) {
+          break;
+        }
+        continueon = false;
       }
     }
+    var notifications = parseInt(anchorEls[i].innerHTML);
+    if (anchorEls[i].classList.contains('yj-notifications-indicator-count') && !isNaN(notifications) && notifications > 0) {
+      Tinycon.setOptions({
+        background: '#d2382b',
+      });
+      if (!continueon) {
+        break;
+      }
+      continueon = false;
+    }
+    else if(continueon) {
+      Tinycon.setOptions({
+        background: '#135eaa',
+      });
+    }
   }
-
   Tinycon.setBubble(newBadge);
 }
 
